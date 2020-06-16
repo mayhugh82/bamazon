@@ -16,9 +16,41 @@ var connection = mysql.createConnection({
   database: "bamazon_DB",
 });
 
-// connect to the mysql server and sql database
+// connect to the mysql2 server and sql database
 connection.connect(function (err) {
-  if (err) throw err;
-  // run the start function after the connection is made to prompt the user
-  start();
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("connected");
+  }
 });
+
+function displayItemsForSale() {
+  connection.query(
+    "Select item_id, product_name, price from products",
+    function (err, results) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.table(results);
+        askProduct();
+      }
+    }
+  );
+}
+
+displayItemsForSale();
+
+function askProduct() {
+  inquirer
+    .prompt([
+      {
+        name: "item_id",
+        type: "input",
+        message: "What is the ID of the product you would like to buy?",
+      },
+    ])
+    .then(function (answer) {
+      console.log(answer);
+    });
+}
