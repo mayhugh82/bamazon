@@ -46,11 +46,31 @@ function askProduct() {
     .prompt([
       {
         name: "item_id",
-        type: "input",
+        type: "number",
         message: "What is the ID of the product you would like to buy?",
+      },
+      {
+        name: "quantity",
+        type: "number",
+        message: "How many units would you like to purchase?",
       },
     ])
     .then(function (answer) {
       console.log(answer);
+      connection.query(
+        "Select item_id, product_name, stock_quantity, price from products WHERE item_id = ?",
+        [answer.item_id],
+        function (err, results) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.table(results);
+            
+            if (answer.stock_quantity > results[0].stock_quantity) {
+                console.log("Insufficient Quantity");
+            }
+          }
+        }
+      );
     });
 }
