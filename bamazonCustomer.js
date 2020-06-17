@@ -27,7 +27,7 @@ connection.connect(function (err) {
 
 function displayItemsForSale() {
   connection.query(
-    "Select item_id, product_name, price from products",
+    "SELECT item_id, product_name, price FROM products",
     function (err, results) {
       if (err) {
         console.log(err);
@@ -58,14 +58,14 @@ function askProduct() {
     .then(function (answer) {
       console.log(answer);
       connection.query(
-        "Select item_id, product_name, stock_quantity, price from products WHERE item_id = ?",
+        "SELECT item_id, product_name, stock_quantity, price FROM products WHERE item_id = ?",
         [answer.item_id],
         function (err, results) {
           if (err) {
             console.log(err);
           } else {
             console.table(results);
-            
+
             if (answer.stock_quantity > results[0].stock_quantity) {
                 console.log("Insufficient Quantity");
             }
