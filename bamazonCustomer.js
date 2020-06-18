@@ -25,22 +25,27 @@ connection.connect(function (err) {
   }
 });
 
+// function to display table of items for sale
 function displayItemsForSale() {
   connection.query(
+    //selecting the columns from the products table to display
     "SELECT item_id, product_name, price FROM products",
     function (err, results) {
       if (err) {
         console.log(err);
       } else {
         console.table(results);
+        //run inquirer questions after displayItemsForSale() function runs
         askProduct();
       }
     }
   );
 }
 
+//call function to display table of items for sale
 displayItemsForSale();
 
+//inquirer prompt 
 function askProduct() {
   inquirer
     .prompt([
@@ -56,9 +61,11 @@ function askProduct() {
       },
     ])
     .then(function (answer) {
+      //runs the answers the user inputs
       console.log(answer);
       connection.query(
-        "SELECT item_id, product_name, stock_quantity, price FROM products WHERE item_id = ?",
+        //selecting the columns from the products table to display
+        "SELECT item_id, product_name, price, stock_quantity FROM products WHERE item_id = ?",
         [answer.item_id],
         function (err, results) {
           if (err) {
@@ -67,7 +74,7 @@ function askProduct() {
             console.table(results);
 
             if (answer.stock_quantity > results[0].stock_quantity) {
-                console.log("Insufficient Quantity");
+              console.log("Insufficient Quantity");
             }
           }
         }
