@@ -81,7 +81,18 @@ function askProduct() {
               item_id: chosenItem.item_id,
             },
           ],
-          
+          function (error) {
+            if (error) throw err;
+            console.log("Order Fullfilled Successfully!");
+            askProduct();
+          }
+        );
+      } else {
+        //not enough in stock, so apologize and start over
+        console.log("Insufficient Quantity!");
+        askProduct();
+      }
+    });
   });
 }
 
