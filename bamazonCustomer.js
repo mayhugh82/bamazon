@@ -68,4 +68,20 @@ function askProduct() {
           chosenItem = results[i];
         }
       }
-      
+      //determine if enough in stock
+      if (chosenItem.stock_quantity > parseInt(answer.quantity)) {
+        //enough in stock so update db, let user know, start over
+        connection.query(
+          "UPDATE products Set ? WHERE ?",
+          [
+            {
+              stock_quantity: answer.quantity,
+            },
+            {
+              item_id: chosenItem.item_id,
+            },
+          ],
+          
+  });
+}
+
