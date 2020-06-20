@@ -18,11 +18,7 @@ var connection = mysql.createConnection({
 
 // connect to the mysql2 server and sql database
 connection.connect(function (err) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("connected");
-  }
+  if (err) throw err;
 });
 
 // function to display table of items for sale
@@ -45,8 +41,12 @@ function displayItemsForSale() {
 //call function to display table of items for sale
 displayItemsForSale();
 
-//inquirer prompt 
+//inquirer prompt
 function askProduct() {
+  // query the database for all items being sold
+  connection.query("SELECT * FROM products", function(err, results) {
+    if (err) throw err;
+    // once you have the items, prompt the user for which they'd like to bid on
   inquirer
     .prompt([
       {
@@ -61,23 +61,11 @@ function askProduct() {
       },
     ])
     .then(function (answer) {
-      //runs the answers the user inputs
-      console.log(answer);
-      connection.query(
-        //selecting the columns from the products table to display
-        "SELECT item_id, product_name, price, stock_quantity FROM products WHERE item_id = ?",
-        [answer.item_id],
-        function (err, results) {
-          if (err) {
-            console.log(err);
-          } else {
-            console.table(results);
-
-            if (answer.stock_quantity > results[0].stock_quantity) {
-              console.log("Insufficient Quantity");
-            }
-          }
+      //get the information of the chosen item
+      var chosenItem;
+      for (var i = 0; i < results.length; i++) {
+        if (results[i].item_id === answer.item_id) {
+          chosenItem = results[i];
         }
-      );
-    });
-}
+      }
+      
