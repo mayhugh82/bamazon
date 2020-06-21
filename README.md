@@ -4,11 +4,11 @@ The goal of this project was to create an Amazon-like storefront using Node.js a
 
 ## Customer View
 
-1. The Bamazon CLI app displays the stores products in a table form.
+1. The Bamazon CLI app displays the store's products in a table form.
 
 2. The customer is asked to enter the product ID number for the product they would like to purchase.
 
-3. The app will check to see if there is enough inventory to fulfill the order.  If so, it will calculate the total cost of the order and inform the customer the the order has gone through successfully along with the price.
+3. The app will check to see if there is enough inventory to fulfill the order.  If so, it will calculate the total cost of the order and inform the customer that the order has gone through successfully along with the total price of the order.
 
 4. If there is not enough inventory in stock to fulfull the order, the customer will receive a message of "Insufficient quantity" and the order process will repeat.
 
