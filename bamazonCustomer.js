@@ -1,5 +1,6 @@
 var mysql = require("mysql2");
 var inquirer = require("inquirer");
+const CheckboxPrompt = require("inquirer/lib/prompts/checkbox");
 require("dotenv").config();
 
 
@@ -86,12 +87,13 @@ function askProduct() {
           function (error) {
             if (error) throw err;
             console.log("Order Fullfilled Successfully!");
+            console.log("Your total is $ " + chosenItem.price * answer.quantity);
             askProduct();
           }
         );
       } else {
         //not enough in stock, so apologize and start over
-        console.log("Insufficient Quantity!");
+        console.log("Insufficient quantity, sorry we do not have enough " + results.product_name + " to complete your order.");
         askProduct();
       }
     });
