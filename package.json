@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/mayhugh82/bamazon#readme",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "inquirer": "^7.2.0",
     "mysql2": "^2.1.0"
   }

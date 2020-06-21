@@ -1,5 +1,7 @@
 var mysql = require("mysql2");
 var inquirer = require("inquirer");
+require("dotenv").config();
+
 
 // create the connection information for the sql database
 var connection = mysql.createConnection({
@@ -12,7 +14,7 @@ var connection = mysql.createConnection({
   user: "root",
 
   // Your password
-  password: "Ravencoder1!",
+  password: process.env.password,
   database: "bamazon_DB",
 });
 
@@ -69,7 +71,7 @@ function askProduct() {
         }
       }
       //determine if enough in stock
-      if (chosenItem.stock_quantity > parseInt(answer.quantity)) {
+      if (chosenItem.stock_quantity >= parseInt(answer.quantity)) {
         //enough in stock so update db, let user know, start over
         connection.query(
           "UPDATE products Set ? WHERE ?",
@@ -95,4 +97,3 @@ function askProduct() {
     });
   });
 }
-
