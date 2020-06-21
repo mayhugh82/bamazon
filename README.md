@@ -15,13 +15,13 @@ The goal of this project was to create an Amazon-like storefront using Node.js a
 
 ## Screen Shots of App Functioning
 
-Customer Able to Purchase Item and Database Updates Stock Quantity
+Customer Able to Purchase Item and Database Updates Stock Quantity (Update can be seen in MySQL in the next image)
 
-![Purchase](/images/begin.PNG)
+![Purchase](/images/order.png)
 
 Customer Unable to Purchase Item
 
-![No Purchase](/images/lose.PNG)
+![No Purchase](/images/no_order.PNG)
 
 
 ## Link to Deployed Version
