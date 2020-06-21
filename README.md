@@ -21,7 +21,7 @@ Customer Able to Purchase Item and Database Updates Stock Quantity (Update can b
 
 Customer Unable to Purchase Item
 
-![No Purchase](/images/noOrder.PNG)
+![No Purchase](/images/no-order.png)
 
 
 ## Link to Deployed Version
