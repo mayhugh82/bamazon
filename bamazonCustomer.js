@@ -73,18 +73,14 @@ function askProduct() {
       }
       //determine if enough in stock
       if (chosenItem.stock_quantity >= parseInt(answer.quantity)) {
-        //enough in stock so update db, let user know, start over
-        connection.query(
-          "UPDATE products Set ? WHERE ?",
-          [
-            {
-              stock_quantity: answer.quantity,
-            },
-            {
-              item_id: chosenItem.item_id,
-            },
-          ],
-          function (error) {
+        
+        var updateStockQuantity =
+          "UPDATE products SET stock_quantity = " +
+          (chosenItem.stock_quantity - answer.quantity) +
+          " WHERE item_id = " +
+          answer.item_id;
+
+        connection.query(updateStockQuantity,function (error) {
             if (error) throw err;
             console.log("Order Fullfilled Successfully!");
             console.log("Your total is $ " + chosenItem.price * answer.quantity);
